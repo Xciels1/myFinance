@@ -1,0 +1,590 @@
+/* ============================================================
+   style.css — Global Stylesheet myFinance
+   Tema: Modern Light Premium
+   ============================================================ */
+
+/* ---- ROOT / BODY ---- */
+.root {
+    -fx-background-color: #f3f4f6;
+    -fx-font-family: "Segoe UI Variable Display", "Segoe UI", "Inter", sans-serif;
+    -fx-font-size: 14px;
+}
+
+/* ============================================================
+   SIDEBAR NAVIGASI
+   ============================================================ */
+.sidebar {
+    -fx-background-color: linear-gradient(to bottom, #111827, #1f2937);
+    -fx-min-width: 260px;
+    -fx-pref-width: 260px;
+    -fx-padding: 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 10, 0, 2, 0);
+}
+
+.sidebar-title {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 24px;
+    -fx-font-weight: 800;
+    -fx-padding: 32px 24px 8px 24px;
+}
+
+.sidebar-subtitle {
+    -fx-text-fill: #9ca3af;
+    -fx-font-size: 12px;
+    -fx-padding: 0 24px 32px 24px;
+}
+
+.sidebar-divider {
+    -fx-background-color: #374151;
+    -fx-pref-height: 1px;
+    -fx-min-height: 1px;
+    -fx-margin: 12px 0;
+}
+
+/* Tombol menu di sidebar */
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #9ca3af;
+    -fx-font-size: 14px;
+    -fx-font-weight: 500;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 14px 24px;
+    -fx-pref-width: 260px;
+    -fx-cursor: hand;
+    -fx-border-width: 0 0 0 4px;
+    -fx-border-color: transparent;
+}
+
+.nav-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+    -fx-text-fill: #ffffff;
+}
+
+.nav-button-active {
+    -fx-background-color: rgba(99, 102, 241, 0.1);
+    -fx-text-fill: #6366f1;
+    -fx-font-weight: bold;
+    -fx-border-color: #6366f1;
+}
+
+.nav-button-active:hover {
+    -fx-background-color: rgba(99, 102, 241, 0.15);
+}
+
+/* Tombol logout di bawah sidebar */
+.nav-button-danger {
+    -fx-background-color: transparent;
+    -fx-text-fill: #f43f5e;
+    -fx-font-size: 14px;
+    -fx-font-weight: 500;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 14px 24px;
+    -fx-pref-width: 260px;
+    -fx-cursor: hand;
+}
+
+.nav-button-danger:hover {
+    -fx-background-color: rgba(244, 63, 94, 0.1);
+    -fx-text-fill: #fb7185;
+}
+
+/* ============================================================
+   CARD — Komponen kotak melayang
+   ============================================================ */
+.card {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(149, 157, 165, 0.15), 24, 0, 0, 8);
+    -fx-padding: 24px;
+}
+
+/* Card ringkasan di Dashboard */
+.card-summary {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(149, 157, 165, 0.15), 24, 0, 0, 8);
+    -fx-padding: 24px 28px;
+    -fx-pref-width: 230px;
+}
+
+.card-income {
+    -fx-background-color: linear-gradient(to bottom right, #f0fdf4, #dcfce7);
+    -fx-border-color: #22c55e;
+    -fx-border-width: 0 0 0 5px;
+    -fx-border-radius: 0 16px 16px 0;
+    -fx-background-radius: 0 16px 16px 0;
+}
+
+.card-expense {
+    -fx-background-color: linear-gradient(to bottom right, #fff1f2, #ffe4e6);
+    -fx-border-color: #f43f5e;
+    -fx-border-width: 0 0 0 5px;
+    -fx-border-radius: 0 16px 16px 0;
+    -fx-background-radius: 0 16px 16px 0;
+}
+
+.card-balance {
+    -fx-background-color: linear-gradient(to bottom right, #eef2ff, #e0e7ff);
+    -fx-border-color: #6366f1;
+    -fx-border-width: 0 0 0 5px;
+    -fx-border-radius: 0 16px 16px 0;
+    -fx-background-radius: 0 16px 16px 0;
+}
+
+/* ============================================================
+   LABEL TEKS
+   ============================================================ */
+.label-judul-halaman {
+    -fx-font-size: 26px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #111827;
+}
+
+.label-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #6b7280;
+}
+
+.label-card-title {
+    -fx-font-size: 13px;
+    -fx-text-fill: #6b7280;
+    -fx-font-weight: 600;
+}
+
+.label-card-nilai {
+    -fx-font-size: 26px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #111827;
+}
+
+.label-income {
+    -fx-text-fill: #16a34a;
+    -fx-font-weight: bold;
+}
+
+.label-expense {
+    -fx-text-fill: #e11d48;
+    -fx-font-weight: bold;
+}
+
+.label-section {
+    -fx-font-size: 18px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #111827;
+}
+
+/* ============================================================
+   TOMBOL AKSI
+   ============================================================ */
+
+/* Tombol utama biru */
+.btn-primary {
+    -fx-background-color: linear-gradient(to right, #6366f1, #4f46e5);
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-padding: 10px 24px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(99, 102, 241, 0.4), 8, 0, 0, 4);
+}
+
+.btn-primary:hover {
+    -fx-background-color: linear-gradient(to right, #4f46e5, #4338ca);
+    -fx-effect: dropshadow(gaussian, rgba(79, 70, 229, 0.5), 12, 0, 0, 6);
+}
+
+.btn-primary:pressed {
+    -fx-background-color: #3730a3;
+    -fx-effect: none;
+}
+
+/* Tombol sukses hijau */
+.btn-success {
+    -fx-background-color: linear-gradient(to right, #10b981, #059669);
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-padding: 10px 24px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(16, 185, 129, 0.4), 8, 0, 0, 4);
+}
+
+.btn-success:hover {
+    -fx-background-color: linear-gradient(to right, #059669, #047857);
+}
+
+/* Tombol hapus merah */
+.btn-danger {
+    -fx-background-color: #f43f5e;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+    -fx-padding: 6px 14px;
+    -fx-cursor: hand;
+}
+
+.btn-danger:hover {
+    -fx-background-color: #e11d48;
+}
+
+/* Tombol edit kuning */
+.btn-warning {
+    -fx-background-color: #f59e0b;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+    -fx-padding: 6px 14px;
+    -fx-cursor: hand;
+}
+
+.btn-warning:hover {
+    -fx-background-color: #d97706;
+}
+
+/* Tombol sekunder abu */
+.btn-secondary {
+    -fx-background-color: #f8fafc;
+    -fx-text-fill: #475569;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-padding: 10px 24px;
+    -fx-cursor: hand;
+    -fx-border-color: #cbd5e1;
+    -fx-border-width: 1px;
+}
+
+.btn-secondary:hover {
+    -fx-background-color: #f1f5f9;
+}
+
+/* ============================================================
+   INPUT FIELD
+   ============================================================ */
+.text-field, .password-field, .text-area {
+    -fx-background-color: #f9fafb;
+    -fx-border-color: #d1d5db;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 10px 14px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #111827;
+    -fx-pref-height: 42px;
+}
+
+.text-field:focused, .password-field:focused, .text-area:focused {
+    -fx-border-color: #6366f1;
+    -fx-background-color: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(99, 102, 241, 0.15), 6, 0, 0, 2);
+}
+
+.combo-box {
+    -fx-background-color: #f9fafb;
+    -fx-border-color: #d1d5db;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-pref-height: 42px;
+    -fx-font-size: 14px;
+}
+
+.combo-box:focused {
+    -fx-border-color: #6366f1;
+    -fx-background-color: #ffffff;
+}
+
+.combo-box .list-cell {
+    -fx-padding: 8px 12px;
+}
+
+.date-picker {
+    -fx-background-color: #f9fafb;
+    -fx-border-color: #d1d5db;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-pref-height: 42px;
+}
+
+.date-picker:focused {
+    -fx-border-color: #6366f1;
+}
+
+.date-picker .text-field {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 0 8px;
+}
+
+.label-form {
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #4b5563;
+    -fx-padding: 0 0 6px 2px;
+}
+
+/* ============================================================
+   TABLE VIEW
+   ============================================================ */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #f9fafb;
+    -fx-border-width: 0;
+    -fx-background-radius: 8px 8px 0 0;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: #e5e7eb;
+    -fx-padding: 12px;
+}
+
+.table-view .column-header .label {
+    -fx-font-weight: 700;
+    -fx-font-size: 12px;
+    -fx-text-fill: #6b7280;
+    -fx-text-transform: uppercase;
+}
+
+.table-view .table-row-cell {
+    -fx-background-color: #ffffff;
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: #f3f4f6;
+    -fx-table-cell-border-color: transparent;
+}
+
+.table-view .table-row-cell:odd {
+    -fx-background-color: #f8fafc;
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: #eef2ff;
+}
+
+.table-view .table-row-cell:hover {
+    -fx-background-color: #f3f4f6;
+}
+
+.table-view .table-cell {
+    -fx-padding: 12px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #1f2937;
+    -fx-border-width: 0;
+    -fx-table-cell-border-color: transparent;
+}
+
+/* Scrollbar di dalam TableView */
+.table-view .scroll-bar:vertical,
+.table-view .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10px;
+}
+
+.table-view .scroll-bar .thumb {
+    -fx-background-color: #cbd5e1;
+    -fx-background-radius: 5px;
+}
+
+.table-view .scroll-bar .thumb:hover {
+    -fx-background-color: #94a3b8;
+}
+
+/* ============================================================
+   HALAMAN LOGIN
+   ============================================================ */
+.login-container {
+    -fx-background-color: linear-gradient(to bottom right, #f3f4f6, #e5e7eb);
+}
+
+.login-card {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 24px;
+    -fx-border-radius: 24px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 30, 0, 0, 15);
+    -fx-padding: 56px 48px;
+    -fx-pref-width: 420px;
+    -fx-max-width: 420px;
+}
+
+.login-title {
+    -fx-font-size: 32px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #111827;
+}
+
+.login-subtitle {
+    -fx-font-size: 15px;
+    -fx-text-fill: #6b7280;
+}
+
+/* ============================================================
+   BADGE / CHIP
+   ============================================================ */
+.badge-income {
+    -fx-background-color: #dcfce7;
+    -fx-text-fill: #15803d;
+    -fx-background-radius: 20px;
+    -fx-padding: 4px 12px;
+    -fx-font-size: 12px;
+    -fx-font-weight: 700;
+}
+
+.badge-expense {
+    -fx-background-color: #ffe4e6;
+    -fx-text-fill: #be123c;
+    -fx-background-radius: 20px;
+    -fx-padding: 4px 12px;
+    -fx-font-size: 12px;
+    -fx-font-weight: 700;
+}
+
+/* ============================================================
+   ALERT / PERINGATAN ANGGARAN di Dashboard
+   ============================================================ */
+.alert-box {
+    -fx-background-color: #fef2f2;
+    -fx-border-color: #f87171;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 12px 20px;
+}
+
+.alert-text {
+    -fx-text-fill: #b91c1c;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+/* ============================================================
+   BARCHART / PIE CHART
+   ============================================================ */
+.chart {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+.chart-vertical-grid-lines {
+    -fx-stroke: #e5e7eb;
+    -fx-stroke-dash-array: 4 4;
+}
+
+.chart-horizontal-grid-lines {
+    -fx-stroke: #e5e7eb;
+    -fx-stroke-dash-array: 4 4;
+}
+
+.chart-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #111827;
+}
+
+.axis-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #6b7280;
+}
+
+.axis {
+    -fx-tick-label-fill: #6b7280;
+    -fx-font-size: 12px;
+}
+
+/* Warna batang BarChart */
+.default-color0.chart-bar { -fx-bar-fill: #6366f1; }
+.default-color1.chart-bar { -fx-bar-fill: #10b981; }
+.default-color2.chart-bar { -fx-bar-fill: #f59e0b; }
+.default-color3.chart-bar { -fx-bar-fill: #f43f5e; }
+.default-color4.chart-bar { -fx-bar-fill: #8b5cf6; }
+.default-color5.chart-bar { -fx-bar-fill: #06b6d4; }
+.default-color6.chart-bar { -fx-bar-fill: #f97316; }
+.default-color7.chart-bar { -fx-bar-fill: #84cc16; }
+
+/* Legend chart */
+.chart-legend {
+    -fx-background-color: transparent;
+}
+
+.chart-legend-item {
+    -fx-font-size: 13px;
+    -fx-text-fill: #4b5563;
+}
+
+/* ============================================================
+   CONTENT AREA — Area utama di kanan sidebar
+   ============================================================ */
+.content-area {
+    -fx-background-color: #f3f4f6;
+    -fx-padding: 32px;
+}
+
+/* ============================================================
+   SCROLL PANE
+   ============================================================ */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-insets: 0;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:vertical {
+    -fx-pref-width: 10px;
+}
+
+.scroll-pane .scroll-bar .thumb {
+    -fx-background-color: #cbd5e1;
+    -fx-background-radius: 5px;
+}
+
+.scroll-pane .scroll-bar .thumb:hover {
+    -fx-background-color: #94a3b8;
+}
+
+/* ============================================================
+   SEPARATOR
+   ============================================================ */
+.separator .line {
+    -fx-border-color: #e5e7eb;
+    -fx-border-width: 1px 0 0 0;
+}
+
+/* ============================================================
+   SPIN / PROGRESS
+   ============================================================ */
+.progress-bar .track {
+    -fx-background-color: #e5e7eb;
+    -fx-background-radius: 4px;
+}
+
+.progress-bar .bar {
+    -fx-background-color: #6366f1;
+    -fx-background-radius: 4px;
+    -fx-background-insets: 0;
+}

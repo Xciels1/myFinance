@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.geometry.*?>
+
+<!--
+    dashboard.fxml — Halaman Utama
+    Layout: HBox utama
+      - Kiri  : Sidebar navigasi (VBox)
+      - Kanan : Area konten (ScrollPane > VBox)
+          > Header (judul + sambutan)
+          > Baris kartu ringkasan (saldo, pemasukan, pengeluaran)
+          > Baris bawah (tombol aksi + BarChart pengeluaran)
+          > Area alert anggaran
+-->
+<HBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.myfinance.controller.DashboardController"
+      prefWidth="1024" prefHeight="680">
+
+    <!-- ====================================================
+         SIDEBAR KIRI
+         ==================================================== -->
+    <VBox styleClass="sidebar" prefWidth="220" minWidth="220">
+
+        <!-- Logo / nama aplikasi -->
+        <Label text="💰 myFinance"  styleClass="sidebar-title"/>
+        <Label text="Keuangan Pribadi" styleClass="sidebar-subtitle"/>
+
+        <Separator styleClass="sidebar-divider"/>
+
+        <!-- Tombol navigasi -->
+        <Button text="🏠  Dashboard"         styleClass="nav-button, nav-button-active"
+                onAction="#handleDashboard"   prefWidth="220"/>
+        <Button text="➕  Tambah Transaksi"   styleClass="nav-button"
+                onAction="#handleTambah"      prefWidth="220"/>
+        <Button text="📋  Riwayat"            styleClass="nav-button"
+                onAction="#handleRiwayat"     prefWidth="220"/>
+        <Button text="📊  Statistik"          styleClass="nav-button"
+                onAction="#handleStatistik"   prefWidth="220"/>
+        <Button text="🎯  Anggaran"           styleClass="nav-button"
+                onAction="#handleAnggaran"    prefWidth="220"/>
+        <Button text="🏷  Kategori"           styleClass="nav-button"
+                onAction="#handleKategori"    prefWidth="220"/>
+
+        <!-- Spacer mendorong tombol logout ke bawah -->
+        <Region VBox.vgrow="ALWAYS"/>
+
+        <Separator styleClass="sidebar-divider"/>
+        <Button text="🚪  Logout"             styleClass="nav-button-danger"
+                onAction="#handleLogout"      prefWidth="220"/>
+
+    </VBox>
+
+    <!-- ====================================================
+         AREA KONTEN KANAN
+         ==================================================== -->
+    <ScrollPane HBox.hgrow="ALWAYS" fitToWidth="true"
+                styleClass="scroll-pane">
+
+        <VBox styleClass="content-area" spacing="20">
+
+            <!-- Header -->
+            <VBox spacing="4">
+                <Label text="Dashboard" styleClass="label-judul-halaman"/>
+                <Label fx:id="lblSambutan" styleClass="label-subtitle"
+                       text="Selamat datang!"/>
+            </VBox>
+
+            <!-- === Baris Kartu Ringkasan === -->
+            <HBox spacing="16">
+
+                <!-- Kartu Saldo -->
+                <VBox styleClass="card-summary, card-balance" spacing="6" HBox.hgrow="ALWAYS">
+                    <Label text="💳  Saldo Saat Ini" styleClass="label-card-title"/>
+                    <Label fx:id="lblSaldo" text="Rp 0"  styleClass="label-card-nilai"/>
+                </VBox>
+
+                <!-- Kartu Pemasukan -->
+                <VBox styleClass="card-summary, card-income" spacing="6" HBox.hgrow="ALWAYS">
+                    <Label text="⬆  Total Pemasukan" styleClass="label-card-title"/>
+                    <Label fx:id="lblPemasukan" text="Rp 0" styleClass="label-card-nilai, label-income"/>
+                </VBox>
+
+                <!-- Kartu Pengeluaran -->
+                <VBox styleClass="card-summary, card-expense" spacing="6" HBox.hgrow="ALWAYS">
+                    <Label text="⬇  Total Pengeluaran" styleClass="label-card-title"/>
+                    <Label fx:id="lblPengeluaran" text="Rp 0" styleClass="label-card-nilai, label-expense"/>
+                </VBox>
+
+            </HBox>
+
+            <!-- === Baris Tengah: Tombol Aksi + BarChart === -->
+            <HBox spacing="16" alignment="TOP_LEFT">
+
+                <!-- Kolom kiri: Tombol aksi cepat -->
+                <VBox styleClass="card" spacing="12" minWidth="200" maxWidth="220">
+                    <Label text="Aksi Cepat" styleClass="label-section"/>
+                    <Button text="➕ Tambah Pemasukan"
+                            styleClass="btn-success"
+                            onAction="#handleTambahPemasukan"
+                            prefWidth="180"/>
+                    <Button text="➖ Tambah Pengeluaran"
+                            styleClass="btn-danger"
+                            onAction="#handleTambahPengeluaran"
+                            prefWidth="180"/>
+                    <Button text="📋 Lihat Riwayat"
+                            styleClass="btn-secondary"
+                            onAction="#handleRiwayat"
+                            prefWidth="180"/>
+                    <Button text="📊 Lihat Statistik"
+                            styleClass="btn-primary"
+                            onAction="#handleStatistik"
+                            prefWidth="180"/>
+                </VBox>
+
+                <!-- Kolom kanan: BarChart pengeluaran per kategori -->
+                <VBox styleClass="card" spacing="12" HBox.hgrow="ALWAYS">
+                    <!-- Header chart dengan filter bulan -->
+                    <HBox alignment="CENTER_LEFT" spacing="12">
+                        <Label text="Pengeluaran per Kategori" styleClass="label-section"
+                               HBox.hgrow="ALWAYS"/>
+                        <ComboBox fx:id="cbBulan" prefWidth="110" promptText="Pilih Bulan"
+                                  onAction="#handleFilterChart"/>
+                        <ComboBox fx:id="cbTahun" prefWidth="90" promptText="Tahun"
+                                  onAction="#handleFilterChart"/>
+                    </HBox>
+
+                    <!-- BarChart: sumbu X = nama kategori, sumbu Y = nominal -->
+                    <BarChart fx:id="barChart" prefHeight="260" animated="false"
+                              styleClass="chart" legendVisible="false">
+                        <xAxis>
+                            <CategoryAxis label="Kategori"/>
+                        </xAxis>
+                        <yAxis>
+                            <NumberAxis label="Nominal (Rp)"/>
+                        </yAxis>
+                    </BarChart>
+
+                </VBox>
+            </HBox>
+
+            <!-- === Area Peringatan Anggaran === -->
+            <!-- Hanya tampil jika ada kategori yang over budget -->
+            <VBox fx:id="vboxAlert" styleClass="card" spacing="8">
+                <Label text="⚠ Peringatan Anggaran" styleClass="label-section"/>
+                <!-- Label-label alert diisi secara dinamis oleh DashboardController -->
+                <Label fx:id="lblTidakAdaAlert"
+                       text="✓ Semua pengeluaran masih dalam batas anggaran."
+                       styleClass="label-income"/>
+            </VBox>
+
+        </VBox>
+    </ScrollPane>
+</HBox>

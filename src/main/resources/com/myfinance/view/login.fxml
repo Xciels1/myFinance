@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<!--
+    login.fxml — Halaman Login
+    Layout: StackPane (background penuh) berisi VBox kartu login di tengah
+-->
+<StackPane xmlns="http://javafx.com/javafx/17"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.myfinance.controller.LoginController"
+           styleClass="login-container"
+           prefWidth="1024" prefHeight="680">
+
+    <!-- Kartu login melayang di tengah layar -->
+    <VBox styleClass="login-card" alignment="CENTER" spacing="18"
+          maxWidth="380" StackPane.alignment="CENTER">
+
+        <!-- Judul -->
+        <Label text="💰 myFinance" styleClass="login-title"/>
+        <Label text="Kelola keuangan pribadi Anda" styleClass="login-subtitle"/>
+
+        <Separator prefWidth="300"/>
+
+        <!-- Field Username -->
+        <VBox spacing="6">
+            <Label text="Username" styleClass="label-form"/>
+            <TextField fx:id="tfUsername"
+                       promptText="Masukkan username"
+                       styleClass="text-field"
+                       prefWidth="300"/>
+        </VBox>
+
+        <!-- Field Password -->
+        <VBox spacing="6">
+            <Label text="Password" styleClass="label-form"/>
+            <PasswordField fx:id="pfPassword"
+                           promptText="Masukkan password"
+                           styleClass="password-field"
+                           prefWidth="300"/>
+        </VBox>
+
+        <!-- Label error (tersembunyi jika tidak ada error) -->
+        <Label fx:id="lblError"
+               styleClass="label-expense"
+               text=""
+               wrapText="true"
+               maxWidth="300"/>
+
+        <!-- Tombol Login -->
+        <Button text="Login"
+                styleClass="btn-primary"
+                onAction="#handleLogin"
+                prefWidth="300" prefHeight="42"/>
+
+        <!-- Link ke halaman Register -->
+        <HBox alignment="CENTER" spacing="4">
+            <Label text="Belum punya akun?" styleClass="label-subtitle"/>
+            <Hyperlink text="Daftar di sini" onAction="#handleKeRegister"/>
+        </HBox>
+
+    </VBox>
+</StackPane>

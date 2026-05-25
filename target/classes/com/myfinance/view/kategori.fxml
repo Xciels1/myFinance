@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<!--
+    kategori.fxml — Halaman Manajemen Kategori (CRUD)
+-->
+<HBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.myfinance.controller.KategoriController"
+      prefWidth="1024" prefHeight="680">
+
+    <!-- ====== SIDEBAR ====== -->
+    <VBox styleClass="sidebar" prefWidth="220" minWidth="220">
+        <Label text="💰 myFinance"      styleClass="sidebar-title"/>
+        <Label text="Keuangan Pribadi"  styleClass="sidebar-subtitle"/>
+        <Separator styleClass="sidebar-divider"/>
+        <Button text="🏠  Dashboard"        styleClass="nav-button" onAction="#handleDashboard"  prefWidth="220"/>
+        <Button text="➕  Tambah Transaksi"  styleClass="nav-button" onAction="#handleTambah"    prefWidth="220"/>
+        <Button text="📋  Riwayat"           styleClass="nav-button" onAction="#handleRiwayat"   prefWidth="220"/>
+        <Button text="📊  Statistik"         styleClass="nav-button" onAction="#handleStatistik" prefWidth="220"/>
+        <Button text="🎯  Anggaran"          styleClass="nav-button" onAction="#handleAnggaran"  prefWidth="220"/>
+        <Button text="🏷  Kategori"          styleClass="nav-button, nav-button-active" onAction="#handleKategori" prefWidth="220"/>
+        <Region VBox.vgrow="ALWAYS"/>
+        <Separator styleClass="sidebar-divider"/>
+        <Button text="🚪  Logout"            styleClass="nav-button-danger" onAction="#handleLogout" prefWidth="220"/>
+    </VBox>
+
+    <!-- ====== KONTEN ====== -->
+    <ScrollPane HBox.hgrow="ALWAYS" fitToWidth="true" styleClass="scroll-pane">
+        <VBox styleClass="content-area" spacing="20">
+
+            <!-- Header -->
+            <VBox spacing="4">
+                <Label text="Manajemen Kategori" styleClass="label-judul-halaman"/>
+                <Label text="Tambah, ubah, atau hapus kategori transaksi Anda."
+                       styleClass="label-subtitle"/>
+            </VBox>
+
+            <HBox spacing="16" alignment="TOP_LEFT">
+
+                <!-- ── Form Tambah / Edit ── -->
+                <VBox styleClass="card" spacing="16" minWidth="260" maxWidth="280">
+                    <Label fx:id="lblFormJudul" text="Tambah Kategori"
+                           styleClass="label-section"/>
+
+                    <VBox spacing="6">
+                        <Label text="Nama Kategori" styleClass="label-form"/>
+                        <TextField fx:id="tfNama"
+                                   promptText="Contoh: Belanja Online"
+                                   styleClass="text-field"
+                                   prefWidth="240"/>
+                    </VBox>
+
+                    <VBox spacing="6">
+                        <Label text="Tipe" styleClass="label-form"/>
+                        <ComboBox fx:id="cbTipe" prefWidth="240"
+                                  promptText="Pilih tipe kategori"
+                                  styleClass="combo-box"/>
+                    </VBox>
+
+                    <Label fx:id="lblFormError" text="" styleClass="label-expense"
+                           wrapText="true" maxWidth="240"/>
+
+                    <HBox spacing="8">
+                        <Button fx:id="btnSimpan" text="💾 Simpan"
+                                styleClass="btn-primary"
+                                onAction="#handleSimpan"
+                                prefWidth="110"/>
+                        <Button text="✖ Batal"
+                                styleClass="btn-secondary"
+                                onAction="#handleBatalEdit"
+                                prefWidth="110"/>
+                    </HBox>
+                </VBox>
+
+                <!-- ── Tabel Kategori ── -->
+                <VBox styleClass="card" spacing="12" HBox.hgrow="ALWAYS">
+                    <Label text="Daftar Kategori" styleClass="label-section"/>
+
+                    <TableView fx:id="tableKategori" VBox.vgrow="ALWAYS"
+                               styleClass="table-view"
+                               prefHeight="450">
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                        </columnResizePolicy>
+                        <columns>
+                            <TableColumn fx:id="kolNama"  text="Nama Kategori" prefWidth="220"/>
+                            <TableColumn fx:id="kolTipe"  text="Tipe"          prefWidth="130"/>
+                            <TableColumn fx:id="kolAksi"  text="Aksi"          prefWidth="150"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+
+            </HBox>
+        </VBox>
+    </ScrollPane>
+</HBox>
