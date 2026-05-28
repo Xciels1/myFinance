@@ -166,4 +166,64 @@ public class Anggaran {
     public String toString() {
         return namaKategori + " - Limit: Rp " + String.format("%,.0f", limitNominal);
     }
+
+    /**
+     * Ambil anggaran milik user untuk kategori tertentu pada bulan & tahun ini.
+     * Digunakan untuk validasi sebelum menyimpan pengeluaran.
+     *
+     * @return Anggaran dengan totalPengeluaran terisi, atau null jika tidak ada
+     */
+    public static Anggaran getAnggaranByKategori(int idUser, int idKategori,
+                                                  int bulan, int tahun)
+            throws SQLException {
+        String bulanStr = String.format("%02d", bulan);
+        String tahunStr = String.valueOf(tahun);
+
+        String sql =
+            "SELECT a.id_anggaran, a.id_user, a.id_kategori, a.limit_nominal, "
+          + "       k.nama_kategori, "
+          + "       COALESCE(SUM(t.nominal), 0) AS total_pengeluaran "
+          + "FROM anggaran a "
+          + "JOIN kategori k ON a.id_kategori = k.id_kategori "
+          + "LEFT JOIN transaksi t "
+          + "       ON t.id_kategori = a.id_kategori "
+          + "      AND t.id_user = a.id_user "
+          + "      AND strftime('%m', t.tanggal) = ? "
+          + "      AND strftime('%Y', t.tanggal) = ? "
+          + "WHERE a.id_user = ? AND a.id_kategori = ? "
+          + "GROUP BY a.id_anggaran";
+
+        ResultSet rs = Database.getInstance().executeQuery(
+                           sql, bulanStr, tahunStr, idUser, idKategori);
+
+        if (rs.next()) {
+            Anggaran ang = new Anggaran(
+                rs.getInt("id_anggaran"),
+                rs.getInt("id_user"),
+                rs.getInt("id_kategori"),
+                rs.getDouble("limit_nominal"),
+                rs.getString("nama_kategori")
+            );
+            ang.setTotalPengeluaran(rs.getDouble("total_pengeluaran"));
+            return ang;
+        }
+        return null;
+    }
+
+    /**
+     * Hitung total saldo user = total pemasukan - total pengeluaran (semua waktu).
+     */
+    public static double getTotalSaldo(int idUser) throws SQLException {
+        String sql =
+            "SELECT "
+          + "  COALESCE(SUM(CASE WHEN k.tipe = 'Pemasukan'  THEN t.nominal ELSE 0 END), 0) "
+          + "  - COALESCE(SUM(CASE WHEN k.tipe = 'Pengeluaran' THEN t.nominal ELSE 0 END), 0) "
+          + "  AS saldo "
+          + "FROM transaksi t "
+          + "JOIN kategori k ON t.id_kategori = k.id_kategori "
+          + "WHERE t.id_user = ?";
+        ResultSet rs = Database.getInstance().executeQuery(sql, idUser);
+        return rs.next() ? rs.getDouble("saldo") : 0;
+    }
 }
+// NOTE: closing brace intentionally omitted - appended before class end

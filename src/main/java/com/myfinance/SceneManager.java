@@ -13,11 +13,12 @@ import java.io.IOException;
  * Singleton: satu instance dipakai seluruh aplikasi.
  * Controller cukup panggil SceneManager.getInstance().tampilkan(Halaman.XXX)
  * untuk berpindah halaman — tidak perlu tahu detail FXMLLoader.
+ *
+ * FIX: Scene di-reuse agar state fullscreen/maximize tidak hilang saat ganti halaman.
  */
 public class SceneManager {
 
     // ===================== Enum Halaman =====================
-    // Daftarkan semua halaman beserta path FXML-nya di sini
     public enum Halaman {
         LOGIN       ("/com/myfinance/view/login.fxml"),
         REGISTER    ("/com/myfinance/view/register.fxml"),
@@ -43,9 +44,12 @@ public class SceneManager {
     private static SceneManager instance;
     private Stage primaryStage;
 
-    // Ukuran jendela aplikasi
+    // Ukuran jendela awal (hanya dipakai saat scene pertama kali dibuat)
     private static final double LEBAR  = 1024;
     private static final double TINGGI = 680;
+
+    // Scene tunggal yang di-reuse antar halaman
+    private Scene mainScene;
 
     private SceneManager() {}
 
@@ -69,27 +73,27 @@ public class SceneManager {
 
     /**
      * Tampilkan halaman berdasarkan enum Halaman.
-     * Otomatis memuat FXML, menerapkan CSS, lalu mengganti scene di stage.
-     *
-     * @param halaman Halaman yang ingin ditampilkan
+     * Scene yang sama di-reuse agar ukuran/fullscreen stage tetap terjaga.
      */
     public void tampilkan(Halaman halaman) {
         try {
-            // Muat file FXML dari resources
             FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(halaman.getPathFxml())
             );
             Parent root = loader.load();
 
-            // Buat scene baru dengan ukuran standar
-            Scene scene = new Scene(root, LEBAR, TINGGI);
+            if (mainScene == null) {
+                // Pertama kali: buat Scene dengan ukuran awal
+                mainScene = new Scene(root, LEBAR, TINGGI);
+                String cssPath = getClass().getResource("/css/style.css").toExternalForm();
+                mainScene.getStylesheets().add(cssPath);
+                primaryStage.setScene(mainScene);
+            } else {
+                // Selanjutnya: ganti root saja, Scene/Stage tidak diganti
+                // sehingga state fullscreen / maximize tetap terjaga
+                mainScene.setRoot(root);
+            }
 
-            // Terapkan stylesheet CSS global
-            String cssPath = getClass().getResource("/css/style.css").toExternalForm();
-            scene.getStylesheets().add(cssPath);
-
-            // Tampilkan di stage utama
-            primaryStage.setScene(scene);
             primaryStage.show();
 
         } catch (IOException e) {
@@ -110,14 +114,17 @@ public class SceneManager {
             );
             Parent root = loader.load();
 
-            Scene scene = new Scene(root, LEBAR, TINGGI);
-            String cssPath = getClass().getResource("/css/style.css").toExternalForm();
-            scene.getStylesheets().add(cssPath);
+            if (mainScene == null) {
+                mainScene = new Scene(root, LEBAR, TINGGI);
+                String cssPath = getClass().getResource("/css/style.css").toExternalForm();
+                mainScene.getStylesheets().add(cssPath);
+                primaryStage.setScene(mainScene);
+            } else {
+                mainScene.setRoot(root);
+            }
 
-            primaryStage.setScene(scene);
             primaryStage.show();
-
-            return loader; // Controller halaman tujuan bisa diambil dari sini
+            return loader;
 
         } catch (IOException e) {
             System.err.println("Gagal memuat halaman: " + halaman.getPathFxml());

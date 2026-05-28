@@ -3,11 +3,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.*?>
 
-<!--
-    tambah-transaksi.fxml — Halaman Tambah / Edit Transaksi
-    Sesuai wireframe proposal: form dengan Jenis, Kategori,
-    Tanggal, Nominal, Keterangan, tombol Kembali + Simpan
--->
 <HBox xmlns="http://javafx.com/javafx/17"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.myfinance.controller.TambahTransaksiController"
@@ -39,24 +34,44 @@
                 <Label text="Isi form di bawah untuk mencatat transaksi baru." styleClass="label-subtitle"/>
             </VBox>
 
+            <!-- Info Saldo -->
+            <HBox styleClass="card" spacing="24" alignment="CENTER_LEFT">
+                <VBox spacing="4" HBox.hgrow="ALWAYS">
+                    <Label text="💳 Total Saldo Saat Ini" styleClass="label-form"/>
+                    <Label fx:id="lblSaldo" text="Rp 0" styleClass="label-saldo"/>
+                </VBox>
+                <VBox spacing="4" alignment="CENTER_RIGHT">
+                    <Label text="⚠️ Peringatan" styleClass="label-form"/>
+                    <Label fx:id="lblWarningAnggaran" text="" styleClass="label-expense" wrapText="true" maxWidth="280"/>
+                </VBox>
+            </HBox>
+
             <!-- Form Card -->
             <VBox styleClass="card" spacing="20" maxWidth="560">
 
-                <!-- Baris 1: Jenis Transaksi -->
-                <VBox spacing="6">
+                <!-- Baris 1: Jenis Transaksi (Toggle Button kiri/kanan) -->
+                <VBox spacing="8">
                     <Label text="Jenis Transaksi" styleClass="label-form"/>
-                    <ComboBox fx:id="cbTipe" prefWidth="520"
-                              promptText="Pilih Pemasukan atau Pengeluaran"
-                              onAction="#handleTipeChanged"
-                              styleClass="combo-box"/>
+                    <HBox fx:id="hboxTipe" spacing="0" styleClass="tipe-toggle-group">
+                        <Button fx:id="btnPemasukan"
+                                text="⬆  Pemasukan"
+                                styleClass="tipe-btn, tipe-btn-left"
+                                onAction="#handlePilihPemasukan"
+                                prefWidth="260" prefHeight="44"/>
+                        <Button fx:id="btnPengeluaran"
+                                text="⬇  Pengeluaran"
+                                styleClass="tipe-btn, tipe-btn-right"
+                                onAction="#handlePilihPengeluaran"
+                                prefWidth="260" prefHeight="44"/>
+                    </HBox>
                 </VBox>
 
-                <!-- Baris 2: Kategori (isinya berubah sesuai tipe) -->
-                <VBox spacing="6">
+                <!-- Baris 2: Kategori (chip button, muncul setelah tipe dipilih) -->
+                <VBox fx:id="vboxKategori" spacing="8" managed="false" visible="false">
                     <Label text="Kategori" styleClass="label-form"/>
-                    <ComboBox fx:id="cbKategori" prefWidth="520"
-                              promptText="Pilih kategori"
-                              styleClass="combo-box"/>
+                    <FlowPane fx:id="flowKategori"
+                              hgap="8" vgap="8"
+                              prefWrapLength="520"/>
                 </VBox>
 
                 <!-- Baris 3: Tanggal -->
@@ -67,13 +82,22 @@
                                 promptText="Pilih tanggal transaksi"/>
                 </VBox>
 
-                <!-- Baris 4: Nominal -->
-                <VBox spacing="6">
+                <!-- Baris 4: Nominal + Quick-Amount Buttons -->
+                <VBox spacing="8">
                     <Label text="Nominal (Rp)" styleClass="label-form"/>
                     <TextField fx:id="tfNominal"
                                promptText="Contoh: 15000"
                                styleClass="text-field"
                                prefWidth="520"/>
+                    <HBox spacing="8" alignment="CENTER_LEFT">
+                        <FlowPane fx:id="flowNominal"
+                                  hgap="8" vgap="8"
+                                  prefWrapLength="440" HBox.hgrow="ALWAYS"/>
+                        <Button fx:id="btnReset" text="↺ Reset"
+                                styleClass="btn-secondary"
+                                onAction="#handleResetNominal"
+                                prefWidth="80" prefHeight="32"/>
+                    </HBox>
                 </VBox>
 
                 <!-- Baris 5: Keterangan (opsional) -->

@@ -25,6 +25,8 @@ import java.util.ResourceBundle;
  * - Edit anggaran yang sudah ada (klik tombol Edit di baris)
  * - Hapus anggaran
  * - Tabel menampilkan realisasi + status (Aman/Melebihi)
+ *
+ * FIX: Ditambahkan popup konfirmasi sebelum menyimpan anggaran.
  */
 public class AnggaranController implements Initializable {
 
@@ -139,7 +141,6 @@ public class AnggaranController implements Initializable {
         lblFormJudul.setText("Edit Anggaran");
         btnSimpan.setText("💾 Update");
 
-        // Pilih kategori di ComboBox
         for (Kategori k : cbKategori.getItems()) {
             if (k.getIdKategori() == ang.getIdKategori()) {
                 cbKategori.setValue(k);
@@ -151,7 +152,7 @@ public class AnggaranController implements Initializable {
 
     @FXML
     private void handleSimpan() {
-        // Validasi
+        // Validasi input
         if (cbKategori.getValue() == null) {
             tampilkanError("Pilih kategori terlebih dahulu.");
             return;
@@ -170,12 +171,41 @@ public class AnggaranController implements Initializable {
             return;
         }
 
+        String namaKategori = cbKategori.getValue().getNamaKategori();
+        String labelAksi    = (idAnggaranEdit > 0) ? "memperbarui" : "menambahkan";
+
+        // ── POPUP KONFIRMASI ──
+        String pesanKonfirmasi = String.format(
+            "Apakah Anda yakin ingin %s anggaran berikut?\n\n" +
+            "  Kategori  : %s\n" +
+            "  Limit     : %s\n" +
+            "  Periode   : Bulan ini (%d/%d)",
+            labelAksi,
+            namaKategori,
+            formatRupiah(limit),
+            bulanIni,
+            tahunIni
+        );
+
+        Alert konfirmasi = new Alert(Alert.AlertType.CONFIRMATION);
+        konfirmasi.setTitle("Konfirmasi Anggaran");
+        konfirmasi.setHeaderText("Konfirmasi " + (idAnggaranEdit > 0 ? "Edit" : "Tambah") + " Anggaran");
+        konfirmasi.setContentText(pesanKonfirmasi);
+
+        ButtonType btnYa    = new ButtonType("Ya, Simpan", ButtonBar.ButtonData.OK_DONE);
+        ButtonType btnBatal = new ButtonType("Batal", ButtonBar.ButtonData.CANCEL_CLOSE);
+        konfirmasi.getButtonTypes().setAll(btnYa, btnBatal);
+
+        Optional<ButtonType> hasil = konfirmasi.showAndWait();
+        if (hasil.isEmpty() || hasil.get() != btnYa) {
+            return; // User membatalkan
+        }
+
+        // ── PROSES SIMPAN ──
         int idUser     = SessionManager.getInstance().getIdUserAktif();
         int idKategori = cbKategori.getValue().getIdKategori();
 
         try {
-            // Anggaran.setLimit() menggunakan INSERT OR REPLACE
-            // sehingga handle baik tambah maupun update sekaligus
             boolean berhasil = Anggaran.setLimit(idUser, idKategori, limit);
             if (berhasil) {
                 handleBatalEdit(); // reset form

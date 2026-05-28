@@ -588,3 +588,134 @@
     -fx-background-radius: 4px;
     -fx-background-insets: 0;
 }
+
+/* ============================================================
+   TAMBAH TRANSAKSI — Toggle Tipe, Chip Kategori, Quick Amount
+   ============================================================ */
+
+/* ── Wrapper group dua tombol tipe ── */
+.tipe-toggle-group {
+    -fx-border-color: #d1d5db;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-pref-width: 520px;
+}
+
+/* ── Base style tombol tipe ── */
+.tipe-btn {
+    -fx-background-color: #f9fafb;
+    -fx-text-fill: #6b7280;
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-cursor: hand;
+    -fx-border-width: 0;
+    -fx-pref-height: 44px;
+}
+
+.tipe-btn-left {
+    -fx-background-radius: 9px 0 0 9px;
+    -fx-border-radius: 9px 0 0 9px;
+    -fx-border-color: transparent #d1d5db transparent transparent;
+    -fx-border-width: 0 1.5px 0 0;
+}
+
+.tipe-btn-right {
+    -fx-background-radius: 0 9px 9px 0;
+    -fx-border-radius: 0 9px 9px 0;
+    -fx-border-width: 0;
+}
+
+.tipe-btn:hover {
+    -fx-background-color: #f3f4f6;
+    -fx-text-fill: #374151;
+}
+
+/* Aktif — Pemasukan (hijau) */
+.tipe-btn-active-masuk {
+    -fx-background-color: #dcfce7;
+    -fx-text-fill: #15803d;
+    -fx-font-weight: 700;
+}
+
+.tipe-btn-active-masuk:hover {
+    -fx-background-color: #bbf7d0;
+}
+
+/* Aktif — Pengeluaran (merah) */
+.tipe-btn-active-keluar {
+    -fx-background-color: #fee2e2;
+    -fx-text-fill: #dc2626;
+    -fx-font-weight: 700;
+}
+
+.tipe-btn-active-keluar:hover {
+    -fx-background-color: #fecaca;
+}
+
+/* ── Chip Kategori ── */
+.chip-btn {
+    -fx-background-color: #f3f4f6;
+    -fx-text-fill: #4b5563;
+    -fx-font-size: 13px;
+    -fx-font-weight: 500;
+    -fx-background-radius: 100px;
+    -fx-border-radius: 100px;
+    -fx-border-color: #d1d5db;
+    -fx-border-width: 1.5px;
+    -fx-padding: 7px 16px;
+    -fx-cursor: hand;
+}
+
+.chip-btn:hover {
+    -fx-background-color: #e5e7eb;
+    -fx-border-color: #9ca3af;
+    -fx-text-fill: #111827;
+}
+
+/* Chip dipilih — indigo */
+.chip-btn-selected {
+    -fx-background-color: #eef2ff;
+    -fx-border-color: #6366f1;
+    -fx-text-fill: #4338ca;
+    -fx-font-weight: 700;
+    -fx-effect: dropshadow(gaussian, rgba(99,102,241,0.2), 6, 0, 0, 2);
+}
+
+/* ── Quick Amount Button ── */
+.quick-btn {
+    -fx-background-color: #f9fafb;
+    -fx-text-fill: #374151;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: #d1d5db;
+    -fx-border-width: 1.5px;
+    -fx-padding: 7px 14px;
+    -fx-cursor: hand;
+}
+
+.quick-btn:hover {
+    -fx-background-color: #eef2ff;
+    -fx-border-color: #6366f1;
+    -fx-text-fill: #4338ca;
+}
+
+/* Quick Amount dipilih */
+.quick-btn-selected {
+    -fx-background-color: #6366f1;
+    -fx-border-color: #4f46e5;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(99,102,241,0.35), 6, 0, 0, 3);
+}
+
+.quick-btn-selected:hover {
+    -fx-background-color: #4f46e5;
+}
+/* ── Label Saldo di Tambah Transaksi ── */
+.label-saldo {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #06d6a0;
+}
