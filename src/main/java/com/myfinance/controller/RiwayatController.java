@@ -44,8 +44,8 @@ public class RiwayatController implements Initializable {
     @FXML private Label lblJumlah;
 
     private static final String[] NAMA_BULAN = {
-        "Januari","Februari","Maret","April","Mei","Juni",
-        "Juli","Agustus","September","Oktober","November","Desember"
+            "Januari","Februari","Maret","April","Mei","Juni",
+            "Juli","Agustus","September","Oktober","November","Desember"
     };
 
     @Override
@@ -81,17 +81,17 @@ public class RiwayatController implements Initializable {
     private void setupKolomTabel() {
         // Setiap kolom diberi lambda yang mengambil nilai dari TransaksiItem
         kolTanggal.setCellValueFactory(
-            data -> new javafx.beans.property.SimpleStringProperty(
-                data.getValue().getTanggal()));
+                data -> new javafx.beans.property.SimpleStringProperty(
+                        data.getValue().getTanggal()));
 
         kolKategori.setCellValueFactory(
-            data -> new javafx.beans.property.SimpleStringProperty(
-                data.getValue().getNamaKategori()));
+                data -> new javafx.beans.property.SimpleStringProperty(
+                        data.getValue().getNamaKategori()));
 
         // Kolom Tipe: warnai teks sesuai jenis transaksi
         kolTipe.setCellValueFactory(
-            data -> new javafx.beans.property.SimpleStringProperty(
-                data.getValue().getTipe()));
+                data -> new javafx.beans.property.SimpleStringProperty(
+                        data.getValue().getTipe()));
         kolTipe.setCellFactory(col -> new TableCell<>() {
             @Override
             protected void updateItem(String tipe, boolean empty) {
@@ -113,12 +113,12 @@ public class RiwayatController implements Initializable {
 
         // Kolom Nominal: tampilkan dalam format Rupiah
         kolNominal.setCellValueFactory(
-            data -> new javafx.beans.property.SimpleStringProperty(
-                data.getValue().getNominalFormatted()));
+                data -> new javafx.beans.property.SimpleStringProperty(
+                        data.getValue().getNominalFormatted()));
 
         kolKeterangan.setCellValueFactory(
-            data -> new javafx.beans.property.SimpleStringProperty(
-                data.getValue().getKeterangan()));
+                data -> new javafx.beans.property.SimpleStringProperty(
+                        data.getValue().getKeterangan()));
     }
 
     // =========================================================
@@ -189,10 +189,10 @@ public class RiwayatController implements Initializable {
         konfirmasi.setTitle("Konfirmasi Hapus");
         konfirmasi.setHeaderText("Hapus Transaksi");
         konfirmasi.setContentText(
-            "Yakin ingin menghapus transaksi berikut?\n"
-            + item.getTipe() + " — " + item.getNamaKategori()
-            + " — " + item.getNominalFormatted()
-            + " (" + item.getTanggal() + ")"
+                "Yakin ingin menghapus transaksi berikut?\n"
+                        + item.getTipe() + " — " + item.getNamaKategori()
+                        + " — " + item.getNominalFormatted()
+                        + " (" + item.getTanggal() + ")"
         );
 
         Optional<ButtonType> hasil = konfirmasi.showAndWait();
@@ -235,13 +235,17 @@ public class RiwayatController implements Initializable {
 
             // Terjemahkan pilihan filter ke nilai yang diterima model
             String tipe  = cbFilterTipe.getValue().equals("Semua") ? null : cbFilterTipe.getValue();
-            int    bulan = cbFilterBulan.getValue().equals("Semua Bulan") ? 0
-                           : cbFilterBulan.getSelectionModel().getSelectedIndex(); // index 1=Jan dst.
+            // Konversi nama bulan ke nomor bulan (1-12) secara eksplisit menggunakan
+            // indexOf pada array NAMA_BULAN, bukan bergantung pada posisi index ComboBox.
+            // Ini memastikan filter selalu benar meskipun urutan item ComboBox berubah.
+            String nilaibulan = cbFilterBulan.getValue();
+            int    bulan = nilaibulan.equals("Semua Bulan") ? 0
+                    : java.util.Arrays.asList(NAMA_BULAN).indexOf(nilaibulan) + 1;
             int    tahun = cbFilterTahun.getValue().equals("Semua Tahun") ? 0
-                           : Integer.parseInt(cbFilterTahun.getValue());
+                    : Integer.parseInt(cbFilterTahun.getValue());
 
             ArrayList<TransaksiItem> daftar =
-                TransaksiItem.getSemuaTransaksi(idUser, tipe, bulan, tahun);
+                    TransaksiItem.getSemuaTransaksi(idUser, tipe, bulan, tahun);
 
             // Masukkan ke ObservableList agar TableView otomatis update
             ObservableList<TransaksiItem> data = FXCollections.observableArrayList(daftar);
