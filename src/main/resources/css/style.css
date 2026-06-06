@@ -65,6 +65,7 @@
     -fx-text-fill: #6366f1;
     -fx-font-weight: bold;
     -fx-border-color: #6366f1;
+    -fx-border-width: 0 0 0 4px;
 }
 
 .nav-button-active:hover {
@@ -599,7 +600,7 @@
     -fx-border-width: 1.5px;
     -fx-border-radius: 10px;
     -fx-background-radius: 10px;
-    -fx-pref-width: 520px;
+    -fx-max-width: Infinity;
 }
 
 /* ── Base style tombol tipe ── */
@@ -611,6 +612,7 @@
     -fx-cursor: hand;
     -fx-border-width: 0;
     -fx-pref-height: 44px;
+    -fx-max-width: Infinity;
 }
 
 .tipe-btn-left {
@@ -718,4 +720,23 @@
     -fx-font-size: 22px;
     -fx-font-weight: bold;
     -fx-text-fill: #06d6a0;
+}
+
+/* ============================================================
+   HYPERLINK
+   ============================================================ */
+.hyperlink {
+    -fx-text-fill: #6366f1;
+    -fx-border-color: transparent;
+    -fx-underline: false;
+    -fx-font-weight: 600;
+}
+
+.hyperlink:hover {
+    -fx-text-fill: #4338ca;
+    -fx-underline: true;
+}
+
+.hyperlink:visited {
+    -fx-text-fill: #6366f1;
 }

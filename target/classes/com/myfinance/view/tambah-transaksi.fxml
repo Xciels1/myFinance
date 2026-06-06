@@ -3,30 +3,25 @@
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.*?>
 
-<!--
-    tambah-transaksi.fxml — Halaman Tambah / Edit Transaksi
-    Sesuai wireframe proposal: form dengan Jenis, Kategori,
-    Tanggal, Nominal, Keterangan, tombol Kembali + Simpan
--->
 <HBox xmlns="http://javafx.com/javafx/17"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.myfinance.controller.TambahTransaksiController"
       prefWidth="1024" prefHeight="680">
 
     <!-- ====== SIDEBAR ====== -->
-    <VBox styleClass="sidebar" prefWidth="220" minWidth="220">
+    <VBox styleClass="sidebar">
         <Label text="💰 myFinance"      styleClass="sidebar-title"/>
         <Label text="Keuangan Pribadi"  styleClass="sidebar-subtitle"/>
         <Separator styleClass="sidebar-divider"/>
-        <Button text="🏠  Dashboard"        styleClass="nav-button" onAction="#handleDashboard"  prefWidth="220"/>
-        <Button text="➕  Tambah Transaksi"  styleClass="nav-button, nav-button-active" onAction="#handleTambah" prefWidth="220"/>
-        <Button text="📋  Riwayat"           styleClass="nav-button" onAction="#handleRiwayat"   prefWidth="220"/>
-        <Button text="📊  Statistik"         styleClass="nav-button" onAction="#handleStatistik" prefWidth="220"/>
-        <Button text="🎯  Anggaran"          styleClass="nav-button" onAction="#handleAnggaran"  prefWidth="220"/>
-        <Button text="🏷  Kategori"          styleClass="nav-button" onAction="#handleKategori"  prefWidth="220"/>
+        <Button text="🏠  Dashboard"        styleClass="nav-button" onAction="#handleDashboard"/>
+        <Button text="➕  Tambah Transaksi"  styleClass="nav-button, nav-button-active" onAction="#handleTambah"/>
+        <Button text="📋  Riwayat"           styleClass="nav-button" onAction="#handleRiwayat"/>
+        <Button text="📊  Statistik"         styleClass="nav-button" onAction="#handleStatistik"/>
+        <Button text="🎯  Anggaran"          styleClass="nav-button" onAction="#handleAnggaran"/>
+        <Button text="🏷  Kategori"          styleClass="nav-button" onAction="#handleKategori"/>
         <Region VBox.vgrow="ALWAYS"/>
         <Separator styleClass="sidebar-divider"/>
-        <Button text="🚪  Logout"            styleClass="nav-button-danger" onAction="#handleLogout" prefWidth="220"/>
+        <Button text="🚪  Logout"            styleClass="nav-button-danger" onAction="#handleLogout"/>
     </VBox>
 
     <!-- ====== KONTEN ====== -->
@@ -39,41 +34,70 @@
                 <Label text="Isi form di bawah untuk mencatat transaksi baru." styleClass="label-subtitle"/>
             </VBox>
 
-            <!-- Form Card -->
-            <VBox styleClass="card" spacing="20" maxWidth="560">
+            <!-- Info Saldo -->
+            <HBox styleClass="card" spacing="24" alignment="CENTER_LEFT">
+                <VBox spacing="4" HBox.hgrow="ALWAYS">
+                    <Label text="💳 Total Saldo Saat Ini" styleClass="label-form"/>
+                    <Label fx:id="lblSaldo" text="Rp 0" styleClass="label-saldo"/>
+                </VBox>
+                <VBox spacing="4" alignment="CENTER_RIGHT">
+                    <Label text="⚠️ Peringatan" styleClass="label-form"/>
+                    <Label fx:id="lblWarningAnggaran" text="" styleClass="label-expense" wrapText="true" maxWidth="280"/>
+                </VBox>
+            </HBox>
 
-                <!-- Baris 1: Jenis Transaksi -->
-                <VBox spacing="6">
+            <!-- Form Card -->
+            <VBox styleClass="card" spacing="20">
+
+                <!-- Baris 1: Jenis Transaksi (Toggle Button kiri/kanan) -->
+                <VBox spacing="8">
                     <Label text="Jenis Transaksi" styleClass="label-form"/>
-                    <ComboBox fx:id="cbTipe" prefWidth="520"
-                              promptText="Pilih Pemasukan atau Pengeluaran"
-                              onAction="#handleTipeChanged"
-                              styleClass="combo-box"/>
+                    <HBox fx:id="hboxTipe" spacing="0" styleClass="tipe-toggle-group" maxWidth="Infinity">
+                        <Button fx:id="btnPemasukan"
+                                text="⬆  Pemasukan"
+                                styleClass="tipe-btn, tipe-btn-left"
+                                onAction="#handlePilihPemasukan"
+                                HBox.hgrow="ALWAYS" prefHeight="44"/>
+                        <Button fx:id="btnPengeluaran"
+                                text="⬇  Pengeluaran"
+                                styleClass="tipe-btn, tipe-btn-right"
+                                onAction="#handlePilihPengeluaran"
+                                HBox.hgrow="ALWAYS" prefHeight="44"/>
+                    </HBox>
                 </VBox>
 
-                <!-- Baris 2: Kategori (isinya berubah sesuai tipe) -->
-                <VBox spacing="6">
+                <!-- Baris 2: Kategori (chip button, muncul setelah tipe dipilih) -->
+                <VBox fx:id="vboxKategori" spacing="8" managed="false" visible="false">
                     <Label text="Kategori" styleClass="label-form"/>
-                    <ComboBox fx:id="cbKategori" prefWidth="520"
-                              promptText="Pilih kategori"
-                              styleClass="combo-box"/>
+                    <FlowPane fx:id="flowKategori"
+                              hgap="8" vgap="8"
+                              prefWrapLength="520"/>
                 </VBox>
 
                 <!-- Baris 3: Tanggal -->
                 <VBox spacing="6">
                     <Label text="Tanggal" styleClass="label-form"/>
-                    <DatePicker fx:id="dpTanggal" prefWidth="520"
+                    <DatePicker fx:id="dpTanggal" maxWidth="Infinity"
                                 styleClass="date-picker"
                                 promptText="Pilih tanggal transaksi"/>
                 </VBox>
 
-                <!-- Baris 4: Nominal -->
-                <VBox spacing="6">
+                <!-- Baris 4: Nominal + Quick-Amount Buttons -->
+                <VBox spacing="8">
                     <Label text="Nominal (Rp)" styleClass="label-form"/>
                     <TextField fx:id="tfNominal"
                                promptText="Contoh: 15000"
                                styleClass="text-field"
-                               prefWidth="520"/>
+                               maxWidth="Infinity"/>
+                    <HBox spacing="8" alignment="CENTER_LEFT">
+                        <FlowPane fx:id="flowNominal"
+                                  hgap="8" vgap="8"
+                                  prefWrapLength="440" HBox.hgrow="ALWAYS"/>
+                        <Button fx:id="btnReset" text="↺ Reset"
+                                styleClass="btn-secondary"
+                                onAction="#handleResetNominal"
+                                prefWidth="80" prefHeight="32"/>
+                    </HBox>
                 </VBox>
 
                 <!-- Baris 5: Keterangan (opsional) -->
@@ -82,7 +106,7 @@
                     <TextField fx:id="tfKeterangan"
                                promptText="Contoh: Makan siang bersama teman"
                                styleClass="text-field"
-                               prefWidth="520"/>
+                               maxWidth="Infinity"/>
                 </VBox>
 
                 <!-- Label error -->

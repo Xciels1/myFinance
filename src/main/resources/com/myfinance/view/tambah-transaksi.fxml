@@ -9,19 +9,19 @@
       prefWidth="1024" prefHeight="680">
 
     <!-- ====== SIDEBAR ====== -->
-    <VBox styleClass="sidebar" prefWidth="220" minWidth="220">
+    <VBox styleClass="sidebar">
         <Label text="💰 myFinance"      styleClass="sidebar-title"/>
         <Label text="Keuangan Pribadi"  styleClass="sidebar-subtitle"/>
         <Separator styleClass="sidebar-divider"/>
-        <Button text="🏠  Dashboard"        styleClass="nav-button" onAction="#handleDashboard"  prefWidth="220"/>
-        <Button text="➕  Tambah Transaksi"  styleClass="nav-button, nav-button-active" onAction="#handleTambah" prefWidth="220"/>
-        <Button text="📋  Riwayat"           styleClass="nav-button" onAction="#handleRiwayat"   prefWidth="220"/>
-        <Button text="📊  Statistik"         styleClass="nav-button" onAction="#handleStatistik" prefWidth="220"/>
-        <Button text="🎯  Anggaran"          styleClass="nav-button" onAction="#handleAnggaran"  prefWidth="220"/>
-        <Button text="🏷  Kategori"          styleClass="nav-button" onAction="#handleKategori"  prefWidth="220"/>
+        <Button text="🏠  Dashboard"        styleClass="nav-button" onAction="#handleDashboard"/>
+        <Button text="➕  Tambah Transaksi"  styleClass="nav-button, nav-button-active" onAction="#handleTambah"/>
+        <Button text="📋  Riwayat"           styleClass="nav-button" onAction="#handleRiwayat"/>
+        <Button text="📊  Statistik"         styleClass="nav-button" onAction="#handleStatistik"/>
+        <Button text="🎯  Anggaran"          styleClass="nav-button" onAction="#handleAnggaran"/>
+        <Button text="🏷  Kategori"          styleClass="nav-button" onAction="#handleKategori"/>
         <Region VBox.vgrow="ALWAYS"/>
         <Separator styleClass="sidebar-divider"/>
-        <Button text="🚪  Logout"            styleClass="nav-button-danger" onAction="#handleLogout" prefWidth="220"/>
+        <Button text="🚪  Logout"            styleClass="nav-button-danger" onAction="#handleLogout"/>
     </VBox>
 
     <!-- ====== KONTEN ====== -->
@@ -47,22 +47,22 @@
             </HBox>
 
             <!-- Form Card -->
-            <VBox styleClass="card" spacing="20" maxWidth="560">
+            <VBox styleClass="card" spacing="20">
 
                 <!-- Baris 1: Jenis Transaksi (Toggle Button kiri/kanan) -->
                 <VBox spacing="8">
                     <Label text="Jenis Transaksi" styleClass="label-form"/>
-                    <HBox fx:id="hboxTipe" spacing="0" styleClass="tipe-toggle-group">
+                    <HBox fx:id="hboxTipe" spacing="0" styleClass="tipe-toggle-group" maxWidth="Infinity">
                         <Button fx:id="btnPemasukan"
                                 text="⬆  Pemasukan"
                                 styleClass="tipe-btn, tipe-btn-left"
                                 onAction="#handlePilihPemasukan"
-                                prefWidth="260" prefHeight="44"/>
+                                HBox.hgrow="ALWAYS" prefHeight="44"/>
                         <Button fx:id="btnPengeluaran"
                                 text="⬇  Pengeluaran"
                                 styleClass="tipe-btn, tipe-btn-right"
                                 onAction="#handlePilihPengeluaran"
-                                prefWidth="260" prefHeight="44"/>
+                                HBox.hgrow="ALWAYS" prefHeight="44"/>
                     </HBox>
                 </VBox>
 
@@ -77,7 +77,7 @@
                 <!-- Baris 3: Tanggal -->
                 <VBox spacing="6">
                     <Label text="Tanggal" styleClass="label-form"/>
-                    <DatePicker fx:id="dpTanggal" prefWidth="520"
+                    <DatePicker fx:id="dpTanggal" maxWidth="Infinity"
                                 styleClass="date-picker"
                                 promptText="Pilih tanggal transaksi"/>
                 </VBox>
@@ -88,7 +88,7 @@
                     <TextField fx:id="tfNominal"
                                promptText="Contoh: 15000"
                                styleClass="text-field"
-                               prefWidth="520"/>
+                               maxWidth="Infinity"/>
                     <HBox spacing="8" alignment="CENTER_LEFT">
                         <FlowPane fx:id="flowNominal"
                                   hgap="8" vgap="8"
@@ -106,7 +106,7 @@
                     <TextField fx:id="tfKeterangan"
                                promptText="Contoh: Makan siang bersama teman"
                                styleClass="text-field"
-                               prefWidth="520"/>
+                               maxWidth="Infinity"/>
                 </VBox>
 
                 <!-- Label error -->

@@ -14,19 +14,19 @@
       prefWidth="1024" prefHeight="680">
 
     <!-- ====== SIDEBAR ====== -->
-    <VBox styleClass="sidebar" prefWidth="220" minWidth="220">
+    <VBox styleClass="sidebar">
         <Label text="💰 myFinance"      styleClass="sidebar-title"/>
         <Label text="Keuangan Pribadi"  styleClass="sidebar-subtitle"/>
         <Separator styleClass="sidebar-divider"/>
-        <Button text="🏠  Dashboard"        styleClass="nav-button" onAction="#handleDashboard"  prefWidth="220"/>
-        <Button text="➕  Tambah Transaksi"  styleClass="nav-button" onAction="#handleTambah"    prefWidth="220"/>
-        <Button text="📋  Riwayat"           styleClass="nav-button" onAction="#handleRiwayat"   prefWidth="220"/>
-        <Button text="📊  Statistik"         styleClass="nav-button" onAction="#handleStatistik" prefWidth="220"/>
-        <Button text="🎯  Anggaran"          styleClass="nav-button, nav-button-active" onAction="#handleAnggaran" prefWidth="220"/>
-        <Button text="🏷  Kategori"          styleClass="nav-button" onAction="#handleKategori"  prefWidth="220"/>
+        <Button text="🏠  Dashboard"        styleClass="nav-button" onAction="#handleDashboard"/>
+        <Button text="➕  Tambah Transaksi"  styleClass="nav-button" onAction="#handleTambah"/>
+        <Button text="📋  Riwayat"           styleClass="nav-button" onAction="#handleRiwayat"/>
+        <Button text="📊  Statistik"         styleClass="nav-button" onAction="#handleStatistik"/>
+        <Button text="🎯  Anggaran"          styleClass="nav-button, nav-button-active" onAction="#handleAnggaran"/>
+        <Button text="🏷  Kategori"          styleClass="nav-button" onAction="#handleKategori"/>
         <Region VBox.vgrow="ALWAYS"/>
         <Separator styleClass="sidebar-divider"/>
-        <Button text="🚪  Logout"            styleClass="nav-button-danger" onAction="#handleLogout" prefWidth="220"/>
+        <Button text="🚪  Logout"            styleClass="nav-button-danger" onAction="#handleLogout"/>
     </VBox>
 
     <!-- ====== KONTEN ====== -->
